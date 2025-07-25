@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RutaController;
+use App\Http\Controllers\ControllerGet;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get ('/get', [RutaController::class , 'get']);
+Route::get ('/get', [ControllerGet::class , 'get']);
 
-Route::get ('/getid/{id}', [RutaController::class , 'getid']);
+Route::get ('/getid/{id}', [ControllerGet::class, 'getid']);
 
-Route::get ('/nuevoproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [RutaController::class , 'nuevoproyecto']);
+Route::get ('/getproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerGet::class, 'getproyecto']);
