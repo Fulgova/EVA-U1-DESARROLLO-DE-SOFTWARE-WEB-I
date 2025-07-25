@@ -8,9 +8,9 @@ use App\Http\Controllers\ControllerPost;
 use App\Http\Controllers\ControllerDelete;
 
 
-/*Route::get('/get', function (Request $request) {
+Route::get('/get', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');*/
+})->middleware('auth:sanctum');
 
 //Post
 Route::post ('/post/{id}', [ControllerPost::class , 'post']);
