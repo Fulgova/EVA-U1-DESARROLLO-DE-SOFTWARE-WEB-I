@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ControllerPost extends Controller
 {
-     public function post()
+     public function post($id)
     {
-        dd("Entre al post");
+        dd("Proyecto ingresado correctamente con ID: " . $id);
     }
 }

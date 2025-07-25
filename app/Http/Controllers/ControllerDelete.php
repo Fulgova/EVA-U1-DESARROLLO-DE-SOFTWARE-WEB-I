@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ControllerDelete extends Controller
 {
-        public function delete()
+        public function delete($id)
     {
-        dd("Entre al delete");
+        dd("Proyecto eliminado correctamente con ID: " . $id);
     }
 }

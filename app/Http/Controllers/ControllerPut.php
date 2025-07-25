@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ControllerPut extends Controller
 {
-     public function put()
+     public function put($id)
     {
-        dd("Entre al put");
+        dd("Proyecto actualizado correstamente con ID: " . $id);
     }
 }
