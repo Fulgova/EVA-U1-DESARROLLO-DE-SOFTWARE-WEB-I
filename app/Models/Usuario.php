@@ -16,4 +16,3 @@ class Usuario extends Model
 
     protected $hidden = ['clave'];
 }
- 

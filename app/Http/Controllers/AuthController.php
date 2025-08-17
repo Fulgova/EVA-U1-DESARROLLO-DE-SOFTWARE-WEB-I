@@ -32,7 +32,6 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Mejor usa el guard explícito para evitar confusiones de defaults:
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Credenciales invalidas'], 401);
         }
