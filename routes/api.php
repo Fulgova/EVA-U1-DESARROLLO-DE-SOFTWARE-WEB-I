@@ -12,14 +12,16 @@ Route::get('/get', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// Get
+Route::get ('/get', [ControllerGet::class , 'get']);
+Route::get ('/getid/{id}', [ControllerGet::class, 'getid']);
+Route::get ('/getproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerGet::class, 'getproyecto']);
+
 //Post
 Route::post ('/post/{id}', [ControllerPost::class , 'post']);
-Route::post ('/postproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerPost::class , 'postproyecto']);
 
 //Put
 Route::put ('/put/{id}', [ControllerPut::class , 'put']);
-Route::Put ('/putproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerPut::class , 'putproyecto']);
 
 //Delete
 Route::delete ('/delete/{id}', [ControllerDelete::class , 'delete']);
-Route::delete ('/deleteproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerDelete::class , 'deleteproyecto']);

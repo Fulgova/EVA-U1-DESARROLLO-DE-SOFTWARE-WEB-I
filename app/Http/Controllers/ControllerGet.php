@@ -12,7 +12,7 @@ class ControllerGet extends Controller
     {
         dd("Lista de proyectos obtenida correctamente.");
     }
-    public function getid($id)
+    public function getid($id) 
     {
         dd("Proyecto encontrado con ID: " . $id);
     }
