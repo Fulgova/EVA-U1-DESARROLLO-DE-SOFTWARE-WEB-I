@@ -51,3 +51,4 @@ class AuthController extends Controller
         return response()->json(['message' => 'Sesion cerrada con exito']);
     }
 }
+ 
