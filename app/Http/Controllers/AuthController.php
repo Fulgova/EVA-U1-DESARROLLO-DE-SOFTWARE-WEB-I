@@ -4,47 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash; // opcional si no usas cast 'hashed'
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+        $data = $request->validate([
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        // Si tu User tiene cast 'password' => 'hashed', NO hagas bcrypt:
+        $user = User::create($data);
 
-        $token = JWTAuth::fromUser($user);
+        // Si NO usas el cast 'hashed', entonces:
+        // $user = User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => bcrypt($data['password']),
+        // ]);
+
+        // Puedes generar token así:
+        // $token = JWTAuth::fromUser($user);
+        // o con el guard explícito:
+        $token = auth('api')->login($user);
 
         return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (!$token = JWTAuth::attempt($credentials)) {
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
+        // Mejor usa el guard explícito para evitar confusiones de defaults:
+        if (!$token = auth('api')->attempt($credentials)) {
+            return response()->json(['error' => 'Credenciales invalidas'], 401);
         }
 
         return response()->json(['token' => $token]);
     }
+
     public function perfil()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth('api')->user());
     }
+
     public function logout()
     {
-        auth()->logout();
-        return response()->json(['message' => 'Sesión cerrada con éxito']);
+        auth('api')->logout();
+        return response()->json(['message' => 'Sesion cerrada con exito']);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ControllerGet;
 use App\Http\Controllers\ControllerPut;
 use App\Http\Controllers\ControllerPost;
 use App\Http\Controllers\ControllerDelete;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/get', function (Request $request) {
@@ -13,23 +14,26 @@ Route::get('/get', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Get
-Route::get ('/get', [ControllerGet::class , 'get']);
-Route::get ('/getid/{id}', [ControllerGet::class, 'getid']);
-Route::get ('/getproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerGet::class, 'getproyecto']);
+Route::get('/get', [ControllerGet::class, 'get']);
+Route::get('/getid/{id}', [ControllerGet::class, 'getid']);
+Route::get('/getproyecto/{id}/{Nombre}/{FechadeInicio}/{Estado}/{Responsable}/{Monto}', [ControllerGet::class, 'getproyecto']);
 
 //Post
-Route::post ('/post/{id}', [ControllerPost::class , 'post']);
+Route::post('/post/{id}', [ControllerPost::class, 'post']);
 
 //Put
-Route::put ('/put/{id}', [ControllerPut::class , 'put']);
+Route::put('/put/{id}', [ControllerPut::class, 'put']);
 
 //Delete
-Route::delete ('/delete/{id}', [ControllerDelete::class , 'delete']);
+Route::delete('/delete/{id}', [ControllerDelete::class, 'delete']);
 
 //Usuario y proyecto
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login']);
-Route::middleware('auth:api')->group(function () {
-Route::post('/perfil', [AuthController::class, 'perfil']);
-Route::post('/logout', [AuthController::class, 'logout']);
- });
+
+
+
+Route::middleware('jwt.auth')->group(function () {
+    Route::get('/perfil',  [AuthController::class, 'perfil']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
