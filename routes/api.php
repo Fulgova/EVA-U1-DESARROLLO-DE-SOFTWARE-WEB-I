@@ -25,3 +25,11 @@ Route::put ('/put/{id}', [ControllerPut::class , 'put']);
 
 //Delete
 Route::delete ('/delete/{id}', [ControllerDelete::class , 'delete']);
+
+//Usuario y proyecto
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login',    [AuthController::class, 'login']);
+Route::middleware('auth:api')->group(function () {
+Route::post('/perfil', [AuthController::class, 'perfil']);
+Route::post('/logout', [AuthController::class, 'logout']);
+ });
