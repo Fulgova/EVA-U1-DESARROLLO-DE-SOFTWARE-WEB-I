@@ -16,9 +16,10 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        
+       
+        $user = User::create($data);
 
-
+    
         $token = auth('api')->login($user);
 
         return response()->json(['user' => $user, 'token' => $token], 201);
