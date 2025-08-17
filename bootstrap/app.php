@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+
+use Tymon\JWTAuth\Http\Middleware\Authenticate as JWTAuthenticate;
+use Tymon\JWTAuth\Http\Middleware\RefreshToken as JWTRefresh;
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -12,7 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
+        $middleware->alias([
+            'jwt.auth'    => JWTAuthenticate::class,
+            'jwt.refresh' => JWTRefresh::class,
+        ]);
+
+   
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

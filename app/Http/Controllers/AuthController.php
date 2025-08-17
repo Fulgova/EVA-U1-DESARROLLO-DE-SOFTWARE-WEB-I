@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-// use Illuminate\Support\Facades\Hash; // opcional si no usas cast 'hashed'
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -17,19 +16,9 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        // Si tu User tiene cast 'password' => 'hashed', NO hagas bcrypt:
-        $user = User::create($data);
+        
 
-        // Si NO usas el cast 'hashed', entonces:
-        // $user = User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => bcrypt($data['password']),
-        // ]);
 
-        // Puedes generar token así:
-        // $token = JWTAuth::fromUser($user);
-        // o con el guard explícito:
         $token = auth('api')->login($user);
 
         return response()->json(['user' => $user, 'token' => $token], 201);
