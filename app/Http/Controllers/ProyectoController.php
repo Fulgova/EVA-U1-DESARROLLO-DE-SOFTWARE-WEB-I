@@ -176,7 +176,7 @@ class ProyectoController extends Controller
             [
                 "mensaje" => "Proyecto eliminado correctamente ✅",
             ],
-            200
+            204
         );
     }
 }
