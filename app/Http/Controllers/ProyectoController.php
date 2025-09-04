@@ -100,7 +100,7 @@ class ProyectoController extends Controller
         if ($validator->fails()) {
             return response()->json(
                 [
-                    "mensaje" => "Validación con error ❌",
+                    "mensaje" => "Validación de campos con error ❌",
                     "errores" => $validator->errors(),
                 ],
                 422
@@ -115,7 +115,7 @@ class ProyectoController extends Controller
 
         return response()->json(
             [
-                "mensaje" => "Proyecto actualizado Correctamente ✅",
+                "mensaje" => "Proyecto actualizado correctamente ✅",
                 "detalles" => [
                     "proyecto" => $proyecto,
                 ],
@@ -148,7 +148,7 @@ class ProyectoController extends Controller
 
         return response()->json(
             [
-                "mensaje" => "Proyecto actualizado Correctamente ✅",
+                "mensaje" => "Proyecto actualizado correctamente ✅",
                 "detalles" => [
                     "proyecto" => $proyecto,
                 ],
@@ -164,7 +164,7 @@ class ProyectoController extends Controller
         if (!$proyecto) {
             return response()->json(
                 [
-                    "mensaje" => "❌ Proyecto no encontrado",
+                    "mensaje" => "Proyecto no encontrado ❌",
                 ],
                 404
             );
