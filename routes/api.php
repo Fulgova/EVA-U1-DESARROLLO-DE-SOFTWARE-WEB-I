@@ -7,6 +7,7 @@ use App\Http\Controllers\ControllerPut;
 use App\Http\Controllers\ControllerPost;
 use App\Http\Controllers\ControllerDelete;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProyectoController;
 
 
 Route::get('/get', function (Request $request) {
@@ -36,4 +37,12 @@ Route::post('/login',    [AuthController::class, 'login']);
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/perfil',  [AuthController::class, 'perfil']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    //Evaluación unidad 3
+    Route::post('/proyectos', [ProyectoController::class, 'store']);//Crear proyecto
+    Route::get('/proyectos', [ProyectoController::class, 'index']);//Listar todos los proyectos
+    Route::get('/proyectos/{id}', [ProyectoController::class, 'show']);//Ver proyecto por ID
+    Route::put('/proyectos/{id}', [ProyectoController::class, 'updatePut']);//Actualizar todos los campos del proyecto por ID
+    Route::patch('/proyectos/{id}', [ProyectoController::class, 'updatePatch']);//Actualizar uno o más campos del proyecto por ID
+    Route::delete('/proyectos/{id}', [ProyectoController::class, 'destroy']);//Eliminar proyecto por ID
 });
